@@ -1,0 +1,30 @@
+.profile__name {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 1.33;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 295px;
+  margin: 0;
+}
+
+@media screen and (max-width: 950px) {
+  .profile__name {
+    font-size: 36px;
+    line-height: 1.33;
+    text-align: center;
+    max-width: 201px;
+  }
+
+@media screen and (max-width: 320px) {
+  .profile__name {
+    font-size: 27px;
+    line-height: 2.07;
+    text-align: center;
+    max-width: 201px;
+  }
+
+  /*Здесь макет не согласуется с заданным line-heigth.
+  Расстояние между надписями больше, а кнопку приходится выравнивать дополнительным отступом. Это точно не ошибка? */
