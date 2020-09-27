@@ -31,5 +31,4 @@ const PopupSubmit = function (evt) {
 
 popupForm.addEventListener('submit', PopupSubmit);
 
-popupSave.addEventListener('click', PopupSubmit); /*Вообще, кнопка сейчас 1 и по дефолту отправляет форму, так что слушатель не нужен.
-Но если там появиться еще одна кнопка...*/
+popupSave.addEventListener('click', PopupClose);
