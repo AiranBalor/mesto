@@ -1,11 +1,12 @@
 .profile__edit-button-picture {
-  width: 24px;
-  height: 24px;
+  width: 10px;
+  height: 10px;
+  object-fit: contain;
 }
 
 @media screen and (max-width: 320px) {
   .profile__edit-button-picture {
-    height: 18px;
-    width: 18px;
+    height: 7px;
+    width: 7px;
   }
 }

@@ -2,15 +2,29 @@
   background-color: #FFFFFF;
   color: black;
   border-radius: 10px;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
   margin: auto;
+  padding: 34px 36px 36px; /*Да, отличный прием. Жаль, увидел его на вебинаре после того, как все сверстал*/
   width: 33.6%;
   max-width: 430px;
   min-width: 282px;
-  height: 330px;
+  min-height: 322px;
+  box-sizing: border-box;
   position: fixed;
-  left:50%;
+  z-index: 3;
+  left: 50%;
   transform: translateX(-50%);
   top: 50%;
   bottom: 50%;
-  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
 }
+
+@media screen and (max-width: 900px) {
+  .popup__container {
+    padding: 25px 22px;
+  }
+}
+
+
+
+/*Я пробовал применять флекс-свойства для центрирования контейнера. Проблема в том, что на мобильном экране попап появляется
+далеко внизу, и до него надо долистать. Думаю, это неудобно. */

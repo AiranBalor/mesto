@@ -6,6 +6,8 @@
   width: 24px;
   align-self: end;
   margin-bottom: 12px;
+  cursor: pointer;
+  object-fit: contain;
 }
 
 @media screen and (max-width: 320px) {
@@ -13,12 +15,14 @@
     height: 18px;
     width: 18px;
     margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
 .profile__edit-button:hover {
   opacity: 0.6;
-  cursor: pointer;
 }
 
 .profile__edit-button:focus {
