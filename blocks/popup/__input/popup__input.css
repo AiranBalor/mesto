@@ -3,13 +3,12 @@
   font-weight: normal;
   font-size: 14px;
   line-height: 17px;
-  width: 83.25%;
-  max-width: 358px;
+  width: 100%;
   max-height: 14px;
-  margin: 0 auto 20px;
-  padding: 10px 0 13px 0;
+  margin-bottom: 17px;
+  padding: 13px 0 13px; /*Здесь паддинг служит для увеличения размера полей ввода. Остальные отступы заданы с учетом паддингов*/
   border: none;
-  border-bottom: 1px solid lightgrey;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
 }
 
 .popup__input:last-of-type {
@@ -18,10 +17,4 @@
 
 .popup__input:focus {
   outline-color: rgb(110, 80, 247);
-}
-
-@media screen and (max-width: 730px) {
-  .popup__input {
-    max-width: 238px;
-  }
 }

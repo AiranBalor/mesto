@@ -1,6 +1,17 @@
 .photo-element__button-like {
+  display: block;
   margin: 6px 1px 0 0;
   padding: 0;
   border: none;
-  background-color: #ffffff;
+  outline: none;
+  min-width: 21px;
+  height: 18px;
+  background: center no-repeat transparent url(../../../images/like-button.svg);
+  background-size: cover;
+  cursor: pointer;
 }
+
+.photo-element__button-like:hover {
+  opacity: 0.5;
+}
+

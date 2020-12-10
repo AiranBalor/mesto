@@ -2,15 +2,18 @@
   background-color: #FFFFFF;
   color: black;
   border-radius: 10px;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
   margin: auto;
-  width: 33.6%;
+  padding: 34px 36px 36px;
+  width: 90%;
   max-width: 430px;
   min-width: 282px;
-  height: 330px;
-  position: fixed;
-  left:50%;
-  transform: translateX(-50%);
-  top: 50%;
-  bottom: 50%;
-  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  position: relative; 
+}
+
+@media screen and (max-width: 900px) {
+  .popup__container {
+    padding: 25px 22px;
+  }
 }

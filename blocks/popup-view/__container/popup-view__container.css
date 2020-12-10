@@ -1,0 +1,9 @@
+.popup-view__container {
+  margin: auto;
+  width: 63.75%;
+  max-height: 75vh;
+  position: relative;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}

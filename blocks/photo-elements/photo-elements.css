@@ -1,8 +1,4 @@
 .photo-elements {
-  width: 69%;
-  max-width: 882px;
-  min-width: 320px;
-  margin: 0 auto;
   padding-top: 51px;
   display: grid;
   grid-template-rows: repeat(2, 1fr);

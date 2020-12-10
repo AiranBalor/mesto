@@ -1,0 +1,4 @@
+.popup-view__image {
+  object-fit: cover;
+  max-height: 75vh;
+}

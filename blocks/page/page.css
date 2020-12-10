@@ -10,10 +10,19 @@
   color: #FFFFFF;
   position: relative;
   width: 100%;
+  max-width: 882px;
+  min-width: 282px;
+  margin: 0 auto; /*А в прошлых ревью советовали в page только стили писать, а все отступы, ширины и прочая - в дочерних блоках =)*/
 }
 
-@media screen and (max-width: 1281px) {
+@media screen and (max-width: 900px) {
   .page {
-    margin: 0 auto;
+    width: calc(100% - 100px);
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .page {
+    width: calc(100% - 38px);
   }
 }

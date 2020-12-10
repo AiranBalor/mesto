@@ -9,6 +9,7 @@
   border: 2px solid #FFFFFF;
   width: 150px;
   height: 50px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 830px) {
@@ -19,7 +20,7 @@
   }
 }
 
-@media screen and (max-width: 730px) {
+@media screen and (max-width: 750px) {
   .profile__add-button {
     width: 282px;
     margin: 0 auto;
@@ -28,7 +29,6 @@
 
 .profile__add-button:hover {
   opacity: 0.6;
-  cursor: pointer;
 }
 
 .profile__add-button:focus {

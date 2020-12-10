@@ -5,97 +5,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
   <link href="./pages/index.css" rel="stylesheet">
+  <script src="./scripts/index.js" defer></script>
 </head>
 <body class="page">
   <header class="header">
-    <img class="logo" src="./images/logo.png" alt="Логотип сайта Mesto">
-    <hr class="header__line">
+    <img class="logo" src="./images/logo.svg" alt="Логотип сайта Mesto">
   </header>
   <main class="content">
+    
     <section class="profile">
       <img class="profile__avatar" src="./images/profile-avatar.jpg" alt="Изображение профиля">
-      <div action="#" class="profile__info">
+      <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <button class="profile__edit-button">
-          <img class="profile__edit-button-picture" src="./images/edit-button.png" alt="Кнопка редактирования профиля">
+        <button type="button" class="profile__edit-button">
+          <img class="profile__edit-button-picture" src="./images/edit-button.svg" alt="Кнопка редактирования профиля">
         </button>
         <p class="profile__profession">Исследователь океана</p>
       </div>
-      <button class="profile__add-button">
-        <img class="profile__add-button-picture" src="./images/add-button.png" alt="Кнопка добавления изображений на сайт">
+      <button type="button" class="profile__add-button">
+        <img class="profile__add-button-picture" src="./images/add-button.svg" alt="Кнопка добавления изображений на сайт">
       </button>
     </section>
-    <section class="photo-elements">
+
+    <section class="photo-elements"></section>
+    <template class="template-photo">
       <article class="photo-element">
-        <img class="photo-element__picture" src="./images/photo-element__las-vegas.jpg" alt="Изображение Лас Вегаса">
+        <button type="button" class="photo-element__button-delete"></button>
+        <img class="photo-element__picture" src="" alt="">
         <div class="photo-element__info">
-          <h2 class="photo-element__title">Лас Вегас</h2>
-          <button class="photo-element__button-like">
-            <img class="photo-element__button-like-picture" src="./images/like-button.svg" alt="Кнопка лайка">
-          </button>
+          <h2 class="photo-element__title"></h2>
+          <button type="button" class="photo-element__button-like"></button>
         </div>
       </article>
-      <article class="photo-element">
-        <img class="photo-element__picture" src="./images/photo-element__spb.jpg" alt="Изображение Санкт-Петербурга">
-        <div class="photo-element__info">
-          <h2 class="photo-element__title">Санкт-Петербург</h2>
-          <button class="photo-element__button-like">
-            <img class="photo-element__button-like-picture" src="./images/like-button.svg" alt="Кнопка лайка">
-          </button>
-        </div>
-      </article>
-      <article class="photo-element">
-        <img class="photo-element__picture" src="./images/photo-element__moscow-sity.jpg" alt="Изображение Москва-сити">
-        <div class="photo-element__info">
-          <h2 class="photo-element__title">Москва-сити - бизнес-центр</h2>
-          <button class="photo-element__button-like">
-            <img class="photo-element__button-like-picture" src="./images/like-button.svg" alt="Кнопка лайка">
-          </button>
-        </div>
-      </article>
-      <article class="photo-element">
-        <img class="photo-element__picture" src="./images/photo-element__berlin.jpg" alt="Изображение Берлина">
-        <div class="photo-element__info">
-          <h2 class="photo-element__title">Берлин</h2>
-          <button class="photo-element__button-like">
-            <img class="photo-element__button-like-picture" src="./images/like-button.svg" alt="Кнопка лайка">
-          </button>
-        </div>
-      </article>
-      <article class="photo-element">
-        <img class="photo-element__picture" src="./images/photo-element__paris.jpg" alt="Изображение Парижа">
-        <div class="photo-element__info">
-          <h2 class="photo-element__title">Париж</h2>
-          <button class="photo-element__button-like">
-            <img class="photo-element__button-like-picture" src="./images/like-button.svg" alt="Кнопка лайка">
-          </button>
-        </div>
-      </article>
-      <article class="photo-element">
-        <img class="photo-element__picture" src="./images/photo-element__rome.jpg" alt="Изображение Рима">
-        <div class="photo-element__info">
-          <h2 class="photo-element__title">Вечный Рим</h2>
-          <button class="photo-element__button-like">
-            <img class="photo-element__button-like-picture" src="./images/like-button.svg" alt="Кнопка лайка">
-          </button>
-        </div>
-      </article>
-    </section>
+    </template>
+    
   </main>
   <footer class="footer">
-    <img class="footer__copyright-image" src="./images/footer__copyright-image.png" alt="Изображение названия проекта в подвале сайта">
+    <img class="footer__copyright-image" src="./images/footer__copyright-image.svg" alt="Изображение логотипа сайта">
   </footer>
-  <div class="popup">
+  <div class="popup popup-profile">
     <form class="popup__container">
       <fieldset class="popup__container-user-info">
-        <p class="popup__container-title">Редактировать профиль</p>
+        <h2 class="popup__container-title">Редактировать профиль</h2>
         <input class="popup__input popup__input_type_name" type="text" placeholder="Имя" required>
         <input class="popup__input popup__input_type_profession" type="text" placeholder="Профессия" required>
-        <button type="submit" class="popup__save-button">Сохранить</button>
+        <button type="submit" class="popup__save-profile">Сохранить</button>
       </fieldset>
-      <button type="button" class="popup__close-button"></button>
+      <button type="button" class="popup__close popup__close_profile"></button>
     </form>
   </div>
-  <script src="./scripts/index.js" defer></script>
+  <div class="popup popup-card">
+    <form class="popup__container popup__container-card">
+      <fieldset class="popup__container-card-info">
+        <h2 class="popup__container-title">Новое место</h2>
+        <input class="popup__input popup__input_type_card-name" type="text" placeholder="Название" required>
+        <input class="popup__input popup__input_type_card-link" type="text" placeholder="Ссылка на картинку" required>
+        <button type="submit" class="popup__add-card-button">Создать</button>
+      </fieldset>
+      <button type="button" class="popup__close popup__close_card"></button>
+    </form>
+  </div>
+  <div class="popup popup-view">
+    <div class="popup-view__container">
+      <button type="button" class="popup__close popup-view__close-button"></button>
+      <img class="popup-view__image" src="" alt="">
+      <h2 class="popup-view__card-title"></h2>
+    </div>
+  </div>
 </body>
 </html>
