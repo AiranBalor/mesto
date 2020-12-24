@@ -1,0 +1,16 @@
+.popup__label {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 26px;
+}
+
+.popup__label:last-of-type {
+  margin-bottom: 0px;
+}
+
+@media screen and (max-width: 730px) {
+  .popup__label {
+    margin-bottom: 16px;
+  }
+}

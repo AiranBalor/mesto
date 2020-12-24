@@ -6,6 +6,7 @@
   <title>Mesto</title>
   <link href="./pages/index.css" rel="stylesheet">
   <script src="./scripts/initial-cards.js" defer></script>
+  <script src="./scripts/validate.js" defer></script>
   <script src="./scripts/index.js" defer></script>
 </head>
 <body class="page">
@@ -13,7 +14,6 @@
     <img class="logo" src="./images/logo.svg" alt="Логотип сайта Mesto">
   </header>
   <main class="content">
-    
     <section class="profile">
       <img class="profile__avatar" src="./images/profile-avatar.jpg" alt="Изображение профиля">
       <div class="profile__info">
@@ -27,7 +27,6 @@
         <img class="profile__add-button-picture" src="./images/add-button.svg" alt="Кнопка добавления изображений на сайт">
       </button>
     </section>
-
     <section class="photo-elements"></section>
     <template class="template-photo">
       <article class="photo-element">
@@ -39,29 +38,40 @@
         </div>
       </article>
     </template>
-    
   </main>
   <footer class="footer">
     <img class="footer__copyright-image" src="./images/footer__copyright-image.svg" alt="Изображение логотипа сайта">
   </footer>
   <div class="popup popup-profile">
-    <form class="popup__container popup__container-profile">
+    <form class="popup__form popup__container popup__container-profile" novalidate>
       <fieldset class="popup__container-user-info">
         <h2 class="popup__container-title">Редактировать профиль</h2>
-        <input class="popup__input popup__input_type_name" type="text" placeholder="Имя" required>
-        <input class="popup__input popup__input_type_profession" type="text" placeholder="Профессия" required>
-        <button type="submit" class="popup__save-profile">Сохранить</button>
+        <label class="popup__label">
+          <input id="profile-name-input" class="popup__input popup__input_type_name" type="text" placeholder="Имя" minlength="2" maxlength="40" required>
+          <span class="popup__input-error profile-name-input-error"></span>
+        </label>
+        <label class="popup__label">
+          <input id="profile-profession-input" class="popup__input popup__input_type_profession" type="text" placeholder="Профессия" minlength="2" maxlength="200" required>
+          <span class="popup__input-error profile-profession-input-error"></span>
+        </label>
+        <button type="submit" class="popup__submit popup__save-profile">Сохранить</button>
       </fieldset>
       <button type="button" class="popup__close popup__close_profile"></button>
     </form>
   </div>
   <div class="popup popup-card">
-    <form class="popup__container popup__container-card">
+    <form class="popup__form popup__container popup__container-card" novalidate>
       <fieldset class="popup__container-card-info">
         <h2 class="popup__container-title">Новое место</h2>
-        <input class="popup__input popup__input_type_card-name" type="text" placeholder="Название" required>
-        <input class="popup__input popup__input_type_card-link" type="text" placeholder="Ссылка на картинку" required>
-        <button type="submit" class="popup__add-card-button">Создать</button>
+        <label class="popup__label">
+          <input id="card-name-input" class="popup__input popup__input_type_card-name" type="text" placeholder="Название" minlength="2" maxlength="30" required>
+          <span class="popup__input-error card-name-input-error"></span>
+        </label>
+        <label class="popup__label">
+          <input id="card-link-input" class="popup__input popup__input_type_card-link" type="url" placeholder="Ссылка на картинку" required>
+          <span class="popup__input-error card-link-input-error"></span>
+        </label>  
+        <button type="submit" class="popup__submit popup__add-card-button">Создать</button>
       </fieldset>
       <button type="button" class="popup__close popup__close_card"></button>
     </form>
