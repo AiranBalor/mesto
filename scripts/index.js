@@ -36,10 +36,6 @@ const openPopup = function (popup) {
 //Общее закрытие попапов
 const closePopup = function (popup) {
   popup.classList.remove("popup_opened");
-  if (popup.classList.contains("popup-card")) {
-    popupCardForm.reset();
-  };
-  //Вот это развешивание удаления слушателей по всем функциям жутковато выглядит. Почему не сборщик?
   document.removeEventListener('keydown', closePopupByEsc);
 };
 
@@ -54,7 +50,7 @@ popupCloseButtons.forEach(function (button) {
 const closePopupByEsc = function (evt) {
   const popupActive = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
-    popupActive.classList.remove('popup_opened');
+    closePopup(popupActive);
     document.removeEventListener('keydown', closePopupByEsc);
   };
 };
@@ -62,7 +58,7 @@ const closePopupByEsc = function (evt) {
 //Закрытие по клику на оверлей
 document.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('popup')) {
-  evt.target.classList.remove('popup_opened');
+  closePopup(evt.target);
   document.removeEventListener('keydown', closePopupByEsc);
   };
 });
@@ -106,8 +102,13 @@ popupCardForm.addEventListener("submit", handleCardSubmit);
 popupCardOpenButton.addEventListener("click", function () {
   clearErrorMessages(popupCardForm, validationConfig);
   setButtonState(popupCardSubmitButton, false, validationConfig);
+  popupCardForm.reset(); //перенес очистку. в отправке формы она уже была.
   openPopup(popupCard);
 });
+
+// if (popup.classList.contains("popup-card")) {
+//   popupCardForm.reset();
+// };
 
 //Просмотр карточки
 const photoView = function (evt) {
@@ -135,12 +136,13 @@ const handleLikeCard = function (evt) {
 //Функция получения данных о карточке
 const createCard = function (cardDate) {
   const newCard = templateCard.cloneNode(true);
-  newCard.querySelector(".photo-element__picture").src = cardDate.link;
-  newCard.querySelector(".photo-element__picture").alt = cardDate.name;
+  const cardPucture = newCard.querySelector(".photo-element__picture");
+  cardPucture.src = cardDate.link;
+  cardPucture.alt = cardDate.name;
+  cardPucture.addEventListener("click", photoView);
   newCard.querySelector(".photo-element__title").textContent = cardDate.name;
   newCard.querySelector(".photo-element__button-delete").addEventListener("click", handleDeleteCard);
   newCard.querySelector(".photo-element__button-like").addEventListener("click", handleLikeCard);
-  newCard.querySelector(".photo-element__picture").addEventListener("click", photoView);
   return newCard;
 };
 
