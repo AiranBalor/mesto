@@ -5,14 +5,9 @@
   line-height: 17px;
   width: 100%;
   max-height: 14px;
-  margin-bottom: 17px;
-  padding: 13px 0 13px; /*Здесь паддинг служит для увеличения размера полей ввода. Остальные отступы заданы с учетом паддингов*/
+  padding: 4px 0 13px;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
-}
-
-.popup__input:last-of-type {
-  margin-bottom: 0;
 }
 
 .popup__input:focus {
