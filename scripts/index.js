@@ -1,7 +1,15 @@
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__button-invalid',
+  inputErrorClass: 'popup__input_state_invalid',
+  errorClass: '.popup__input-error',
+};
+
 //Попап профиля
 const popupProfile = document.querySelector(".popup-profile");
 const popupProfileEditButton = document.querySelector(".profile__edit-button");
-const popupProfileSubmitButton = document.querySelector(".popup__save-profile");
 const nameInput = document.querySelector(".popup__input_type_name");
 const professionInput = document.querySelector(".popup__input_type_profession");
 const profileName = document.querySelector(".profile__name");
@@ -16,16 +24,14 @@ const popupCard = document.querySelector(".popup-card");
 const popupCardOpenButton = document.querySelector(".profile__add-button");
 const cardNameInput = document.querySelector(".popup__input_type_card-name");
 const cardLinkInput = document.querySelector(".popup__input_type_card-link");
-const popupCardSubmitButton = popupCard.querySelector(".popup__add-card-button");
 
 //Попап просмотра изображений
 const popupPhotoView = document.querySelector(".popup-view");
 const photoViewImage = popupPhotoView.querySelector(".popup-view__image");
 const photoViewTitle = popupPhotoView.querySelector(".popup-view__card-title");
 
-//Переменные для работы функции загрузки (рендера) карточек
+//Переменная для работы функции загрузки (рендера) карточек
 const photoElements = document.querySelector(".photo-elements");
-const templateCard = document.querySelector(".template-photo").content;
 
 //Общее открытие попапов
 const openPopup = function (popup) {
@@ -36,6 +42,9 @@ const openPopup = function (popup) {
 //Общее закрытие попапов
 const closePopup = function (popup) {
   popup.classList.remove("popup_opened");
+  if (popup.classList.contains("popup-card")) {
+    popupCardForm.reset();
+  };
   document.removeEventListener('keydown', closePopupByEsc);
 };
 
@@ -50,7 +59,7 @@ popupCloseButtons.forEach(function (button) {
 const closePopupByEsc = function (evt) {
   const popupActive = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
-    closePopup(popupActive);
+    popupActive.classList.remove('popup_opened');
     document.removeEventListener('keydown', closePopupByEsc);
   };
 };
@@ -58,7 +67,7 @@ const closePopupByEsc = function (evt) {
 //Закрытие по клику на оверлей
 document.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('popup')) {
-  closePopup(evt.target);
+  evt.target.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupByEsc);
   };
 });
@@ -72,11 +81,12 @@ const editPopupProfile = function () {
 
 //При открытии формы чистим сообщения об ошибках и включаем кнопку
 popupProfileEditButton.addEventListener("click", function () {
-  clearErrorMessages(popupProfileForm, validationConfig);
-  setButtonState(popupProfileSubmitButton, true, validationConfig);
+  profileValidation.setButtonState(true);
+  profileValidation.clearErrorMessages();
   editPopupProfile();
 });
 
+//Сохранение профиля
 const handleProfileSubmit = function (evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
@@ -86,12 +96,17 @@ const handleProfileSubmit = function (evt) {
 
 popupProfileForm.addEventListener("submit", handleProfileSubmit);
 
+//Общая функция создания карточки, чтобы не дублировать код при рендере карточек из массива и при добавлении через форму
+const createCard = function (cardData) {
+  const cardElement = new Card (cardData, '.template-photo', photoView);
+  const card = cardElement.generateCard();
+  return card;
+}
+
 //Добавление карточек
 const handleCardSubmit = function (evt) {
   evt.preventDefault();
-  photoElements.prepend(
-    createCard({ name: cardNameInput.value, link: cardLinkInput.value })
-  );
+  photoElements.prepend(createCard({name: cardNameInput.value, link: cardLinkInput.value}));
   popupCardForm.reset();
   closePopup(popupCard);
 };
@@ -100,55 +115,26 @@ popupCardForm.addEventListener("submit", handleCardSubmit);
 
 //Перед открытием формы чистим сообщения об ошибках и отключаем кнопку.
 popupCardOpenButton.addEventListener("click", function () {
-  clearErrorMessages(popupCardForm, validationConfig);
-  setButtonState(popupCardSubmitButton, false, validationConfig);
-  popupCardForm.reset(); //перенес очистку. в отправке формы она уже была.
+  cardValidation.setButtonState(false);
+  cardValidation.clearErrorMessages();
   openPopup(popupCard);
 });
 
-// if (popup.classList.contains("popup-card")) {
-//   popupCardForm.reset();
-// };
-
 //Просмотр карточки
-const photoView = function (evt) {
+const photoView = function ({name, link}) {
   openPopup(popupPhotoView);
-  const currentPhotoCard = evt.target.closest(".photo-element");
-  const currentPhoto = currentPhotoCard.querySelector(".photo-element__picture");
-  const currentPhotoTitle = currentPhotoCard.querySelector(".photo-element__title");
-  photoViewImage.src = currentPhoto.src;
-  photoViewTitle.textContent = currentPhotoTitle.textContent;
+  photoViewImage.src = link;
+  photoViewTitle.textContent = name;
 };
 
-//Удаление карточек
-const handleDeleteCard = function (evt) {
-  const currentButton = evt.currentTarget;
-  const currentCard = currentButton.closest(".photo-element");
-  currentButton.removeEventListener("click", handleDeleteCard);
-  currentCard.remove();
-};
+initialCards.forEach((item) => {
+  photoElements.append(createCard(item));
+})
 
-//Лайки карточек
-const handleLikeCard = function (evt) {
-  evt.target.classList.toggle("photo-element__button-like_active");
-};
+const profileValidation = new FormValidator (validationConfig, popupProfileForm);
+profileValidation.enableFormValidation();
+const cardValidation = new FormValidator (validationConfig, popupCardForm);
+cardValidation.enableFormValidation();
 
-//Функция получения данных о карточке
-const createCard = function (cardDate) {
-  const newCard = templateCard.cloneNode(true);
-  const cardPucture = newCard.querySelector(".photo-element__picture");
-  cardPucture.src = cardDate.link;
-  cardPucture.alt = cardDate.name;
-  cardPucture.addEventListener("click", photoView);
-  newCard.querySelector(".photo-element__title").textContent = cardDate.name;
-  newCard.querySelector(".photo-element__button-delete").addEventListener("click", handleDeleteCard);
-  newCard.querySelector(".photo-element__button-like").addEventListener("click", handleLikeCard);
-  return newCard;
-};
-
-//Функция рендера карточек
-const renderPhotoElements = (section, arr) => {
-  section.append(...arr.map(createCard));
-};
-
-renderPhotoElements(photoElements, initialCards);
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
