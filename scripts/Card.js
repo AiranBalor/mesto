@@ -29,11 +29,8 @@ export class Card {
   }
 
   _handleDeleteCard() {
-    this._element.querySelector(".photo-element__button-delete").removeEventListener("click", () => { //Думаю, здесь избыточный поиск 
-      // по DOM. Определить, что есть что в методе generateCard?
-      this._handleDeleteCard();
-    });
     this._element.remove();
+    this._element = null;
   }
 
   _handleLikeCard() {

@@ -1,3 +1,6 @@
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
+
 const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -44,7 +47,7 @@ const closePopup = function (popup) {
   popup.classList.remove("popup_opened");
   if (popup.classList.contains("popup-card")) {
     popupCardForm.reset();
-  };
+  }
   document.removeEventListener('keydown', closePopupByEsc);
 };
 
@@ -57,9 +60,9 @@ popupCloseButtons.forEach(function (button) {
 
 //Закрытие по ESC
 const closePopupByEsc = function (evt) {
-  const popupActive = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
-    popupActive.classList.remove('popup_opened');
+    const popupActive = document.querySelector('.popup_opened');
+    closePopup(popupActive);
     document.removeEventListener('keydown', closePopupByEsc);
   };
 };
@@ -67,8 +70,8 @@ const closePopupByEsc = function (evt) {
 //Закрытие по клику на оверлей
 document.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('popup')) {
-  evt.target.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupByEsc);
+    closePopup(evt.target);
+    document.removeEventListener('keydown', closePopupByEsc);
   };
 });
 
@@ -99,15 +102,13 @@ popupProfileForm.addEventListener("submit", handleProfileSubmit);
 //Общая функция создания карточки, чтобы не дублировать код при рендере карточек из массива и при добавлении через форму
 const createCard = function (cardData) {
   const cardElement = new Card (cardData, '.template-photo', photoView);
-  const card = cardElement.generateCard();
-  return card;
+  return cardElement.generateCard();
 }
 
 //Добавление карточек
 const handleCardSubmit = function (evt) {
   evt.preventDefault();
   photoElements.prepend(createCard({name: cardNameInput.value, link: cardLinkInput.value}));
-  popupCardForm.reset();
   closePopup(popupCard);
 };
 
@@ -135,6 +136,3 @@ const profileValidation = new FormValidator (validationConfig, popupProfileForm)
 profileValidation.enableFormValidation();
 const cardValidation = new FormValidator (validationConfig, popupCardForm);
 cardValidation.enableFormValidation();
-
-import { Card } from "./Card.js";
-import { FormValidator } from "./FormValidator.js";

@@ -3,13 +3,14 @@ export class FormValidator {
     this._config = config;
     this._form = form;
     this._submitButton = this._form.querySelector('.popup__submit');
+    this._inputList = this._form.querySelectorAll(this._config.inputSelector);
   }
 
   clearErrorMessages() {
     this._form.querySelectorAll(this._config.errorClass).forEach(error => {
       error.textContent = "";
     });
-    this._form.querySelectorAll(this._config.inputSelector).forEach(input => {
+    this._inputList.forEach(input => {
       input.classList.remove(this._config.inputErrorClass);
     });
   };
@@ -45,11 +46,10 @@ export class FormValidator {
   };
 
   _setEventListeners() {
-    const inputList = this._form.querySelectorAll(this._config.inputSelector);
-    inputList.forEach(input => {
+    this._inputList.forEach(input => {
       input.addEventListener("input", () => {
-      this._checkInputValidity(input);
-      this.setButtonState(this._form.checkValidity());
+        this._checkInputValidity(input);
+        this.setButtonState(this._form.checkValidity());
       });
     });
   };
@@ -62,4 +62,3 @@ export class FormValidator {
     this.setButtonState(this._form.checkValidity());
   };
 }
-
