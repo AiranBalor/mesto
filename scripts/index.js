@@ -63,7 +63,6 @@ const closePopupByEsc = function (evt) {
   if (evt.key === 'Escape') {
     const popupActive = document.querySelector('.popup_opened');
     closePopup(popupActive);
-    document.removeEventListener('keydown', closePopupByEsc);
   };
 };
 
@@ -71,7 +70,6 @@ const closePopupByEsc = function (evt) {
 document.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('popup')) {
     closePopup(evt.target);
-    document.removeEventListener('keydown', closePopupByEsc);
   };
 });
 
