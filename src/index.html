@@ -4,26 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
-  <link href="./pages/index.css" rel="stylesheet">
-  <script src="./scripts/initial-cards.js" defer></script>
-  <script type="module" src="./scripts/index.js" defer></script>
 </head>
 <body class="page">
   <header class="header">
-    <img class="logo" src="./images/logo.svg" alt="Логотип сайта Mesto">
+    <img class="logo" src="<%=require('./images/logo.svg')%>" alt="Логотип сайта Mesto">
   </header>
   <main class="content">
     <section class="profile">
-      <img class="profile__avatar" src="./images/profile-avatar.jpg" alt="Изображение профиля">
+      <img class="profile__avatar" src="<%=require('./images/profile-avatar.jpg')%>" alt="Изображение профиля">
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <button type="button" class="profile__edit-button">
-          <img class="profile__edit-button-picture" src="./images/edit-button.svg" alt="Кнопка редактирования профиля">
+          <img class="profile__edit-button-picture" src="<%=require('./images/edit-button.svg')%>" alt="Кнопка редактирования профиля">
         </button>
         <p class="profile__profession">Исследователь океана</p>
       </div>
       <button type="button" class="profile__add-button">
-        <img class="profile__add-button-picture" src="./images/add-button.svg" alt="Кнопка добавления изображений на сайт">
+        <img class="profile__add-button-picture" src="<%=require('./images/add-button.svg')%>" alt="Кнопка добавления изображений на сайт">
       </button>
     </section>
     <section class="photo-elements"></section>
@@ -40,7 +37,7 @@
     </template>
   </main>
   <footer class="footer">
-    <img class="footer__copyright-image" src="./images/footer__copyright-image.svg" alt="Изображение логотипа сайта">
+    <img class="footer__copyright-image" src="<%=require('./images/footer__copyright-image.svg')%>" alt="Изображение логотипа сайта">
   </footer>
 
   <div class="popup popup-profile">
@@ -48,11 +45,11 @@
       <fieldset class="popup__container-user-info">
         <h2 class="popup__container-title">Редактировать профиль</h2>
         <label class="popup__label">
-          <input id="profile-name-input" class="popup__input popup__input_type_name" type="text" placeholder="Имя" minlength="2" maxlength="40" required>
+          <input name="name" id="profile-name-input" class="popup__input popup__input_type_name" type="text" placeholder="Имя" minlength="2" maxlength="40" required>
           <span class="popup__input-error profile-name-input-error"></span>
         </label>
         <label class="popup__label">
-          <input id="profile-profession-input" class="popup__input popup__input_type_profession" type="text" placeholder="Профессия" minlength="2" maxlength="200" required>
+          <input name="profession" id="profile-profession-input" class="popup__input popup__input_type_profession" type="text" placeholder="Профессия" minlength="2" maxlength="200" required>
           <span class="popup__input-error profile-profession-input-error"></span>
         </label>
         <button type="submit" class="popup__submit popup__save-profile">Сохранить</button>
@@ -66,11 +63,11 @@
       <fieldset class="popup__container-card-info">
         <h2 class="popup__container-title">Новое место</h2>
         <label class="popup__label">
-          <input id="card-name-input" class="popup__input popup__input_type_card-name" type="text" placeholder="Название" minlength="2" maxlength="30" required>
+          <input name="name" id="card-name-input" class="popup__input popup__input_type_card-name" type="text" placeholder="Название" minlength="2" maxlength="30" required>
           <span class="popup__input-error card-name-input-error"></span>
         </label>
         <label class="popup__label">
-          <input id="card-link-input" class="popup__input popup__input_type_card-link" type="url" placeholder="Ссылка на картинку" required>
+          <input name="link" id="card-link-input" class="popup__input popup__input_type_card-link" type="url" placeholder="Ссылка на картинку" required>
           <span class="popup__input-error card-link-input-error"></span>
         </label>  
         <button type="submit" class="popup__submit popup__add-card-button">Создать</button>
@@ -78,6 +75,7 @@
       <button type="button" class="popup__close popup__close_card"></button>
     </form>
   </div>
+  
   <div class="popup popup-view">
     <div class="popup-view__container">
       <button type="button" class="popup__close popup-view__close-button"></button>
