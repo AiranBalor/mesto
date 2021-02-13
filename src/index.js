@@ -24,14 +24,14 @@ import UserInfo from "./components/UserInfo.js";
 
 import './pages/index.css';
 
+const createCard = function (cardData) {
+  const cardElement = new Card (cardData, '.template-photo', photoView);
+  return cardElement.generateCard();
+}
+
 const userInfo = new UserInfo({
   name: profileName,
   profession: profileProfession,
-});
-
-userInfo.setUserInfo({
-  newName: nameInput.value,
-  newProfession: professionInput.value,
 });
 
 popupProfileEditButton.addEventListener("click", () => {
@@ -47,8 +47,8 @@ const popupUserProfile = new PopupWithForm({
   popupSelector: popupProfile,
   handleFormSubmit: (data) => {
     userInfo.setUserInfo({
-      newName: nameInput.value,
-      newProfession: professionInput.value,
+      newName: data.name,
+      newProfession: data.profession,
     });
     userInfo.updateUserInfo();
   },
@@ -59,13 +59,14 @@ popupUserProfile.setEventListeners();
 const popupAddCard = new PopupWithForm({
   popupSelector: popupCard,
   handleFormSubmit: (data) => {
-    const newCard = new Card(data, ".template-photo", photoView).generateCard();
+    const newCard = createCard(data);
     cardList.addNewItem(newCard);
   },
 });
 
-popupAddCard.setEventListeners();
+popupAddCard.setEventListeners(); //метод класса PopupWithForm
 
+//Перед открытием формы чистим сообщения об ошибках и отключаем кнопку.
 popupCardOpenButton.addEventListener("click", function () {
   cardValidation.setButtonState(false);
   cardValidation.clearErrorMessages();
@@ -74,6 +75,7 @@ popupCardOpenButton.addEventListener("click", function () {
 
 //Просмотр карточки
 const popupView = new PopupWithImage(popupPhotoView);
+popupView.setEventListeners();
 
 const photoView = function ({ name, link }) {
   popupView.open({ name, link });
@@ -84,7 +86,7 @@ const cardList = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const card = new Card(item, ".template-photo", photoView).generateCard();
+      const card = createCard(item);
       cardList.addItem(card);
     },
   },
