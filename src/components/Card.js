@@ -34,20 +34,25 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._element.querySelector(".photo-element__button-delete").addEventListener("click", this._handleConfirmDelete);
-    const likeButton = this._element.querySelector(".photo-element__button-like");
+    this._element
+      .querySelector(".photo-element__button-delete")
+      .addEventListener("click", this._handleConfirmDelete);
+    const likeButton = this._element.querySelector(
+      ".photo-element__button-like"
+    );
     likeButton.addEventListener("click", () => {
-      if (likeButton.classList.contains('photo-element__button-like_active')) {
+      if (likeButton.classList.contains("photo-element__button-like_active")) {
         this._handleRemoveLike();
-      } else { 
+      } else {
         this._handleLike();
       }
     });
-    this._element.querySelector(".photo-element__picture").addEventListener("click", () => {
+    this._element
+      .querySelector(".photo-element__picture")
+      .addEventListener("click", () => {
         this._openImage({ name: this._name, link: this._link });
-    });
+      });
   }
-
 
   generateCard() {
     this._element = this._getTemplate();
@@ -57,7 +62,9 @@ export default class Card {
     const cardPucture = this._element.querySelector(".photo-element__picture");
     cardPucture.src = this._link;
     cardPucture.alt = this._name;
-    this._element.querySelector(".photo-element__title").textContent = this._name;
+    this._element.querySelector(
+      ".photo-element__title"
+    ).textContent = this._name;
     this._setEventListeners();
     return this._element;
   }
@@ -83,18 +90,24 @@ export default class Card {
 
   //Методы работы с лайками
   toggleLikeCard() {
-    this._element.querySelector(".photo-element__button-like").classList.toggle("photo-element__button-like_active");
+    this._element
+      .querySelector(".photo-element__button-like")
+      .classList.toggle("photo-element__button-like_active");
   }
 
   checkLikes() {
-    const isLiked = this._likes.some(i => i._id === this._userId);
+    const isLiked = this._likes.some((i) => i._id === this._userId);
     if (isLiked) {
-      this._element.querySelector(".photo-element__button-like").classList.add("photo-element__button-like_active");
+      this._element
+        .querySelector(".photo-element__button-like")
+        .classList.add("photo-element__button-like_active");
     }
   }
 
   countLikes(likesValue) {
-    const counterLike = this._element.querySelector(".photo-element__likes-counter");
+    const counterLike = this._element.querySelector(
+      ".photo-element__likes-counter"
+    );
     return (counterLike.textContent = likesValue);
   }
 }

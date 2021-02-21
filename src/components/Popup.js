@@ -1,5 +1,5 @@
 export default class Popup {
-  constructor (popupSelector) {
+  constructor(popupSelector) {
     this._popup = popupSelector;
     this._handleEscClose = this._handleEscClose.bind(this);
     this._handleOverlayClose = this._handleOverlayClose.bind(this);
@@ -18,19 +18,19 @@ export default class Popup {
   }
 
   _handleEscClose(evt) {
-    if (evt.key === 'Escape') {
+    if (evt.key === "Escape") {
       this.close();
     }
   }
 
   _handleOverlayClose(evt) {
-    if (evt.target.classList.contains('popup')) {
+    if (evt.target.classList.contains("popup")) {
       this.close();
-    };
+    }
   }
 
   setEventListeners() {
-    this._popup.querySelector('.popup__close').addEventListener("click", () => {
+    this._popup.querySelector(".popup__close").addEventListener("click", () => {
       this.close();
     });
   }
