@@ -36,21 +36,22 @@ const createCard = function ({ name, link, _id, owner, likes }) {
       cardSelector: ".template-photo",
       handleCardClick: photoView,
       handleConfirmDelete: () => {
+        console.log(userInfo.returnUserId())
         popupDeleteCardConfirm.setEventListeners(
           removeCardFormServer(cardElement)
         );
         popupDeleteCardConfirm.open();
       },
       handleLike: function () {
-        apiInstance.addLike(_id).then((res) => {
-          console.log(res);
+        apiInstance.addLike(_id)
+        .then((res) => {
           cardElement.toggleLikeCard();
           cardElement.countLikes(res.likes.length);
         });
       },
       handleRemoveLike: function () {
-        apiInstance.deleteLike(_id).then((res) => {
-          console.log(res);
+        apiInstance.deleteLike(_id)
+        .then((res) => {
           cardElement.toggleLikeCard();
           cardElement.countLikes(res.likes.length);
         });
@@ -64,6 +65,7 @@ const photoView = function ({ name, link }) {
   popupView.open({ name, link });
 };
 
+
 //Работа с API
 const apiInstance = new Api(
   {
@@ -74,25 +76,16 @@ const apiInstance = new Api(
   }
 });
 
-//Отправили запрос на сервер и после ответа сервера отрендерили карточки, загруженные пользователями
-apiInstance.getInitialCards()
-  .then((res) => {
-    cardList.renderItems(res);
+apiInstance.getAllInfo()
+  .then(([userInfoServer, cards]) => {
+    userInfo.setUserInfo(userInfoServer)
+    userInfo.getUserId(userInfoServer._id)
+    cardList.renderItems(cards)
+    userInfo.updateUserInfo()
   })
   .catch((err) => {
     console.log(`Ошибка - ${err.status}`);
-  })
-
-//Отправили запрос на сервер о пользователе, затем вставили эти данные в DOM-узлы 
-apiInstance.getUserInfoFromServer()
-  .then((res) => {
-    userInfo.setUserInfo(res);
-    userInfo.getUserId(res._id);
-    userInfo.updateUserInfo();
-  })
-  .catch((err) => {
-    console.log(`Ошибка - ${err.status}`);
-  })
+  });
 
 const removeCardFormServer = function (card) {
   return () => {
@@ -119,7 +112,8 @@ photoElements
 
 const userInfo = new UserInfo({
   name: profileName,
-  profession: profileProfession
+  profession: profileProfession,
+  avatar: profileAvatar
 });
 
 //Попапы
@@ -135,7 +129,7 @@ popupProfileEditButton.addEventListener("click", () => {
 const popupUserProfile = new PopupWithForm({
   popupSelector: popupProfile,
   handleFormSubmit: (data) => {
-    renderLoading(popupProfile, true);
+    popupUserProfile.renderLoading(true);
     apiInstance.updateUserInfo(data)
       .then(res => {
         userInfo.setUserInfo(res);
@@ -144,8 +138,11 @@ const popupUserProfile = new PopupWithForm({
       .catch((err) => {
         console.log(`Ошибка - ${err.status}`);
       })
-    renderLoading(popupProfile, false);
-  },
+      .finally(
+        popupUserProfile.renderLoading(false),
+        popupUserProfile.close()
+      )
+  }
 });
 
 popupUserProfile.setEventListeners();
@@ -153,7 +150,7 @@ popupUserProfile.setEventListeners();
 const popupAvatar = new PopupWithForm({
   popupSelector: popupAvatarSelector,
   handleFormSubmit: (data) => {
-    renderLoading(popupAvatar, true);
+    popupAvatar.renderLoading(true);
     apiInstance.updateAvatar(data)
       .then(res => {
         userInfo.setUserInfo(res);
@@ -162,8 +159,11 @@ const popupAvatar = new PopupWithForm({
       .catch((err) => {
         console.log(`Ошибка - ${err.status}`);
       })
-    renderLoading(popupAvatar, false);
-  },
+      .finally(
+        popupAvatar.renderLoading(false),
+        popupAvatar.close()
+      )
+  }
 })
 
 popupAvatar.setEventListeners();
@@ -178,16 +178,19 @@ profileAvatar.addEventListener("click", () => {
 const popupAddCard = new PopupWithForm({
   popupSelector: popupCard,
   handleFormSubmit: (data) => {
-    renderLoading(popupAddCard, true);
+    popupAddCard.renderLoading(true);
     apiInstance.sendNewCard(data)
-      .then((res) => {
+      .then(res => {
         const newCard = createCard(res);
         cardList.addNewItem(newCard);
       })
       .catch((err) => {
         console.log(`Ошибка - ${err.status}`);
       })
-    renderLoading(popupAddCard, true);
+      .finally(
+        popupAddCard.renderLoading(false),
+        popupAddCard.close()
+      )
   },
 });
 
@@ -213,16 +216,4 @@ const cardValidation = new FormValidator(validationConfig, popupCardForm);
 cardValidation.enableFormValidation();
 const avatarValidation = new FormValidator(validationConfig, popupAvatarForm);
 avatarValidation.enableFormValidation();
-
-function renderLoading(popupSelector, isLoading) {
-  const buttonElement = popupSelector.querySelector('.popup__submit');
-  if (isLoading) {
-      buttonElement.textContent = 'Сохранение...';
-  } else {
-      if (popupSelector === '.popup-card') {
-          buttonElement.textContent = 'Создать';
-      } else {
-          buttonElement.textContent = 'Сохранить';
-      }
-  }
-}
+//Старая функция взяла и сломалась.

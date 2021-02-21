@@ -38,7 +38,7 @@ export default class Card {
     const likeButton = this._element.querySelector(".photo-element__button-like");
     likeButton.addEventListener("click", () => {
       if (likeButton.classList.contains('photo-element__button-like_active')) {
-        this._handleRemoveLike()
+        this._handleRemoveLike();
       } else { 
         this._handleLike();
       }
@@ -87,11 +87,10 @@ export default class Card {
   }
 
   checkLikes() {
-    this._likes.forEach(item => {
-      if (item._id === this._userId) {
-        this._element.querySelector(".photo-element__button-like").classList.add("photo-element__button-like_active");
-      }
-    })
+    const isLiked = this._likes.some(i => i._id === this._userId);
+    if (isLiked) {
+      this._element.querySelector(".photo-element__button-like").classList.add("photo-element__button-like_active");
+    }
   }
 
   countLikes(likesValue) {
