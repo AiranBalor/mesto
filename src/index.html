@@ -11,13 +11,16 @@
   </header>
   <main class="content">
     <section class="profile">
-      <img class="profile__avatar" src="<%=require('./images/profile-avatar.jpg')%>" alt="Изображение профиля">
+      
+      <div class="profile__overlay">
+        <img class="profile__avatar" src="<%=require('./images/profile-avatar.jpg')%>" alt="Изображение профиля">
+      </div>
       <div class="profile__info">
-        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <h1 class="profile__name"></h1>
         <button type="button" class="profile__edit-button">
           <img class="profile__edit-button-picture" src="<%=require('./images/edit-button.svg')%>" alt="Кнопка редактирования профиля">
         </button>
-        <p class="profile__profession">Исследователь океана</p>
+        <p class="profile__profession"></p>
       </div>
       <button type="button" class="profile__add-button">
         <img class="profile__add-button-picture" src="<%=require('./images/add-button.svg')%>" alt="Кнопка добавления изображений на сайт">
@@ -31,7 +34,10 @@
         <img class="photo-element__picture" src="#" alt="#">
         <div class="photo-element__info">
           <h2 class="photo-element__title"></h2>
-          <button type="button" class="photo-element__button-like"></button>
+          <div class="photo-element__likes-container">
+            <button type="button" class="photo-element__button-like"></button>
+            <span class="photo-element__likes-counter">0</span>
+          </div>
         </div>
       </article>
     </template>
@@ -52,7 +58,7 @@
           <input name="profession" id="profile-profession-input" class="popup__input popup__input_type_profession" type="text" placeholder="Профессия" minlength="2" maxlength="200" required>
           <span class="popup__input-error profile-profession-input-error"></span>
         </label>
-        <button type="submit" class="popup__submit popup__save-profile">Сохранить</button>
+        <button type="submit" class="popup__submit">Сохранить</button>
       </fieldset>
       <button type="button" class="popup__close popup__close_profile"></button>
     </form>
@@ -70,7 +76,7 @@
           <input name="link" id="card-link-input" class="popup__input popup__input_type_card-link" type="url" placeholder="Ссылка на картинку" required>
           <span class="popup__input-error card-link-input-error"></span>
         </label>  
-        <button type="submit" class="popup__submit popup__add-card-button">Создать</button>
+        <button type="submit" class="popup__submit">Создать</button>
       </fieldset>
       <button type="button" class="popup__close popup__close_card"></button>
     </form>
@@ -83,5 +89,26 @@
       <h2 class="popup-view__card-title"></h2>
     </div>
   </div>
+
+  <div class="popup popup-delete">
+    <div class="popup__form popup__container" novalidate>
+      <h2 class="popup__container-title popup__container-title-delete">Вы уверены?</h2> 
+      <button type="button" class="popup__submit popup__delete-card-button">Да</button>
+      <button type="button" class="popup__close popup__close-delete"></button>
+    </div>
+  </div>
+
+  <div class="popup popup-avatar">
+    <form class="popup__form popup__container popup__container-avatar" novalidate>
+      <h2 class="popup__container-title">Обновить аватар</h2> 
+      <label class="popup__label">
+        <input name="link" id="card-link-input" class="popup__input popup__input_type_card-link" type="url" placeholder="Ссылка на аватар" required>
+        <span class="popup__input-error card-link-input-error"></span>
+      </label>
+      <button type="submit" class="popup__submit">Сохранить</button>
+      <button type="button" class="popup__close popup__close_delete"></button>
+    </form>
+  </div>
+
 </body>
 </html>

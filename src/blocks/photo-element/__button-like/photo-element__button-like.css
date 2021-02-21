@@ -1,11 +1,11 @@
 .photo-element__button-like {
   display: block;
-  margin: 6px 1px 0 0;
+  margin: 6px 0 3px;
   padding: 0;
   border: none;
   outline: none;
-  min-width: 21px;
-  height: 18px;
+  width: 22px;
+  height: 19px;
   background: center no-repeat transparent url(../../../images/like-button.svg);
   background-size: cover;
   cursor: pointer;

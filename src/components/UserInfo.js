@@ -2,24 +2,35 @@ export default class UserInfo {
   constructor({name, profession}) {
     this._actualName = name;
     this._actualProfession = profession;
+    this._userAvatar = document.querySelector('.profile__avatar');
     this._name = "";
-    this._profession = ""
+    this._profession = "";
   }
 
-  getUserInfo() {
+  getUserInfo() { //Возвращает объект, в ключи которого записывает значения текстКонтент ДОМ-узлов
     return { 
       name: this._actualName.textContent,
       profession: this._actualProfession.textContent
     }
   }
 
-  setUserInfo({newName, newProfession}) {
-    this._name = newName;
-    this._profession = newProfession;
+  setUserInfo({name, about, avatar}) {//Записывает в this для последующего обновления инфы
+    this._name = name;
+    this._profession = about;
+    this._avatar = avatar;
   }
 
-  updateUserInfo() {
+  updateUserInfo() { //Записывает в ДОМ-узлы
     this._actualName.textContent = this._name;
     this._actualProfession.textContent = this._profession;
+    this._userAvatar.src = this._avatar;
+  }
+
+  getUserId(id) {
+    this._userId = id;
+  }
+
+  returnUserId() {
+    return this._userId;
   }
 }
